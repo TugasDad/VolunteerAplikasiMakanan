@@ -29,3 +29,5 @@ Q.idea/sonarlint/securityhotspotstore/7/1/711db27d786a77c8ed145474a2b2a49a5dcacd
 Q.idea/sonarlint/securityhotspotstore/b/c/bc5351c022e9c2ff032c01c40c9301e608cb59de,8\0\808bfdf39cf43b77786af23fbced5c43b10d4800
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e

@@ -11,4 +11,5 @@
     <string name="title_like">like</string>
     <string name="title_account">account</string>
     <string name="searchbar_hint">Cari resep atau bahan yang kamu punya</string>
+    <string name="main_text1">Event di Sekitarmu</string>
 </resources>
