@@ -12,6 +12,17 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_pantry"
+        android:name="com.capstonebangkit.dishcover.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_pantry" />
+    <fragment
+        android:id="@+id/navigation_camera"
+        android:name="com.capstonebangkit.dishcover.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_camera" />
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.capstonebangkit.dishcover.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
@@ -22,4 +33,8 @@
         android:name="com.capstonebangkit.dishcover.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+
+
+
 </navigation>

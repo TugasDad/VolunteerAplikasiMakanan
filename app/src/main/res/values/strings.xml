@@ -3,4 +3,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_fragment_pantry">This is pantry fragment</string>
+    <string name="title_pantry">Pantry</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_like">like</string>
+    <string name="title_account">account</string>
+    <string name="searchbar_hint">Cari resep atau bahan yang kamu punya</string>
+    <string name="main_text1">Event di Sekitarmu</string>
 </resources>
