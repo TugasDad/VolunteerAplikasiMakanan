@@ -1,13 +1,17 @@
 package com.capstonebangkit.dishcover
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstonebangkit.dishcover.databinding.ActivityMainBinding
+import com.capstonebangkit.dishcover.dataclass.dataRecipe
+import com.capstonebangkit.dishcover.viewmodel.RecipeViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,5 +39,12 @@ class MainActivity : AppCompatActivity() {
         )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+        // for test
+        // java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
+        // for this problem, get a json data and parse a json
+        val recipeViewModel = RecipeViewModel()
+        Log.d("Test", recipeViewModel.getDataRecipe().toString())
     }
 }
