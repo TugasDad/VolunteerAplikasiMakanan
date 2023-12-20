@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstonebangkit.dishcover.databinding.ActivityMainBinding
 import com.capstonebangkit.dishcover.dataclass.dataRecipe
+import com.capstonebangkit.dishcover.viewmodel.FavoriteViewModel
 import com.capstonebangkit.dishcover.viewmodel.RecipeViewModel
 import com.capstonebangkit.dishcover.viewmodel.RecipeWithIdViewModel
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val recipeViewModel : RecipeViewModel by viewModels()
     private val recipeWithIdViewModel : RecipeWithIdViewModel by viewModels()
+    private val favorite : FavoriteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         })
         recipeViewModel.getDataRecipe()
 
+        // autorized permission
         recipeWithIdViewModel.dataRecipeWithId.observe(this, Observer {recipeWithId ->
             for(recipe in recipeWithId){
                 Log.d("Id_Recipe", recipe.id.toString())
@@ -72,6 +75,22 @@ class MainActivity : AppCompatActivity() {
         recipeWithIdViewModel.message.observe(this, Observer {message ->
             Log.w("Message", message.toString())
         })
+
+        // favorite test
+        favorite.dataFavorite.observe(this, Observer {favoriteData ->
+            for(favorite in favoriteData){
+                Log.d("Id_favorite", favorite.id.toString())
+                Log.d("User_Id", favorite.userId.toString())
+                Log.d("id",favorite.recipe_id.id.toString())
+                Log.d("name", favorite.recipe_id.name.toString())
+                Log.d("description",favorite.recipe_id.description.toString())
+                Log.d("ingredients",favorite.recipe_id.ingredients.toString())
+                Log.d("step", favorite.recipe_id.step.toString())
+                Log.d("urlimage",favorite.recipe_id.urlimage.toString())
+
+            }
+        })
+
 
 
     }

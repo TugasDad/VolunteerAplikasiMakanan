@@ -2,7 +2,7 @@ package com.capstonebangkit.dishcover.dataclass
 
 import com.google.gson.annotations.SerializedName
 
-data class RecipeWithId(
+data class RecipeWithIdDataClass(
     var status : Int?,
     var message : String?,
     var data : List<dataRecipeWithId>

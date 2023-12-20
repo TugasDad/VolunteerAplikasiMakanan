@@ -27,5 +27,11 @@ class RetrofitInitial {
             .build()
     }
 
+    var retrofitMyFavorit = Retrofit.Builder()
+        .baseUrl("https://dev-dishcoverapi.et.r.appspot.com/api/myfavourite/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
 
 }
