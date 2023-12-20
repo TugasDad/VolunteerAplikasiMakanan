@@ -20,5 +20,12 @@ class RetrofitInitial {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    var retrofitRecipeWithId = { id : String? ->
+        Retrofit.Builder()
+            .baseUrl("https://dev-dishcoverapi.et.r.appspot.com/api/recipe/${id}/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
 
 }
