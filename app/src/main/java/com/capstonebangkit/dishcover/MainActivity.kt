@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.capstonebangkit.dishcover.databinding.ActivityMainBinding
 import com.capstonebangkit.dishcover.dataclass.dataRecipe
 import com.capstonebangkit.dishcover.viewmodel.FavoriteViewModel
+import com.capstonebangkit.dishcover.viewmodel.LoginViewModel
 import com.capstonebangkit.dishcover.viewmodel.RecipeViewModel
 import com.capstonebangkit.dishcover.viewmodel.RecipeWithIdViewModel
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val recipeViewModel : RecipeViewModel by viewModels()
     private val recipeWithIdViewModel : RecipeWithIdViewModel by viewModels()
     private val favorite : FavoriteViewModel by viewModels()
+    private val loginViewModel : LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,8 +89,13 @@ class MainActivity : AppCompatActivity() {
                 Log.d("ingredients",favorite.recipe_id.ingredients.toString())
                 Log.d("step", favorite.recipe_id.step.toString())
                 Log.d("urlimage",favorite.recipe_id.urlimage.toString())
-
             }
+        })
+        favorite.getDataFavorite()
+
+        // get Login Token
+        loginViewModel.DataLogin.observe(this, Observer { result ->
+
         })
 
 
