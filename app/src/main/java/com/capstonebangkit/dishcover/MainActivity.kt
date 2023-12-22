@@ -13,7 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.capstonebangkit.dishcover.databinding.ActivityMainBinding
 import com.capstonebangkit.dishcover.dataclass.dataRecipe
 import com.capstonebangkit.dishcover.viewmodel.FavoriteViewModel
+import com.capstonebangkit.dishcover.viewmodel.KeywordViewModel
 import com.capstonebangkit.dishcover.viewmodel.LoginViewModel
+import com.capstonebangkit.dishcover.viewmodel.QueryViewModel
 import com.capstonebangkit.dishcover.viewmodel.RecipeViewModel
 import com.capstonebangkit.dishcover.viewmodel.RecipeWithIdViewModel
 
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private val recipeWithIdViewModel : RecipeWithIdViewModel by viewModels()
     private val favorite : FavoriteViewModel by viewModels()
     private val loginViewModel : LoginViewModel by viewModels()
+    private val queryData : QueryViewModel by viewModels()
+    private val keywordData : KeywordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +53,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
 
-        // for test
-        // java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 2 path $
-        // for this problem, get a json data and parse a json
         recipeViewModel.dataRecipe.observe(this, Observer {recipes ->
             // Log.d("Recipe Activity", "Recipes : $recipes")
             for(recipe in recipes){
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         })
         recipeViewModel.getDataRecipe()
 
-        // autorized permission
+        // autorized permission (for access this, you must get token)
         recipeWithIdViewModel.dataRecipeWithId.observe(this, Observer {recipeWithId ->
             for(recipe in recipeWithId){
                 Log.d("Id_Recipe", recipe.id.toString())
@@ -93,10 +94,39 @@ class MainActivity : AppCompatActivity() {
         })
         favorite.getDataFavorite()
 
-        // get Login Token
-        loginViewModel.DataLogin.observe(this, Observer { result ->
-
+        // get Query ayam
+        queryData.queryData.observe(this, Observer {query ->
+            for(dataQuery in query){
+                Log.d("Id_query", dataQuery.id.toString())
+                Log.d("Name_query", dataQuery.name.toString())
+                Log.d("Description_query", dataQuery.description.toString())
+                Log.d("urlPhoto_query",dataQuery.urlImage.toString())
+            }
         })
+        queryData.getQueryResult()
+
+        // get Keyword ayam,sayur
+        keywordData.keyworddata.observe(this, Observer { keyword ->
+            for(dataKeyword in keyword){
+                Log.d("Id_keyword", dataKeyword.id.toString())
+                Log.d("Name_keyword", dataKeyword.name.toString())
+                Log.d("Description_keyword", dataKeyword.description.toString())
+                Log.d("urlPhoto_keyword",dataKeyword.urlImage.toString())
+            }
+        })
+        keywordData.getKeywordResult()
+
+        keywordData.message.observe(this, Observer {message ->
+            Log.w("Message", message.toString())
+        })
+
+        keywordData.error.observe(this, Observer {message ->
+            Log.w("Error : ", message.toString())
+        })
+
+
+
+
 
 
 
