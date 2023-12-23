@@ -75,9 +75,9 @@ class MainActivity : AppCompatActivity() {
         })
         recipeWithIdViewModel.getDataRecipe()
 
-        recipeWithIdViewModel.message.observe(this, Observer {message ->
+       /* recipeWithIdViewModel.message.observe(this, Observer {message ->
             Log.w("Message", message.toString())
-        })
+        })*/
 
         // favorite test
         favorite.dataFavorite.observe(this, Observer {favoriteData ->
@@ -116,19 +116,21 @@ class MainActivity : AppCompatActivity() {
         })
         keywordData.getKeywordResult()
 
-        keywordData.message.observe(this, Observer {message ->
+        /*keywordData.message.observe(this, Observer {message ->
             Log.w("Message", message.toString())
         })
 
         keywordData.error.observe(this, Observer {message ->
             Log.w("Error : ", message.toString())
+        })*/
+
+        loginViewModel.username = "endangkus"
+        loginViewModel.password = "123456"
+        // login
+        loginViewModel.DataLogin.observe(this, Observer {token ->
+            Log.d("Token Get : ", token.toString())
         })
-
-
-
-
-
-
+        loginViewModel.loginDataUser()
 
     }
 }

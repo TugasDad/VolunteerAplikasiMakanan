@@ -23,3 +23,16 @@ data class dataFavoriteId(
     @SerializedName("urlimage") var urlimage : String?,
 )
 
+// data class for dataFavorite Post
+data class FavoritePostDataClass(
+    var status : Int?,
+    var message : String?,
+    var data : List<responsePostDataClass>
+)
+
+data class responsePostDataClass(
+    @SerializedName("id") var id : String?,
+    @SerializedName("user_id") var user_id : String?,
+    @SerializedName("recipe_id") var recipe_id : String?,
+)
+

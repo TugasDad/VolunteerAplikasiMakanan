@@ -1,28 +1,54 @@
 package com.capstonebangkit.dishcover.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import  androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.capstonebangkit.dishcover.apiInterface.LoginAPIInterface
 import com.capstonebangkit.dishcover.callback.LoginCallback
 import com.capstonebangkit.dishcover.dataclass.LoginDataClass
 import com.capstonebangkit.dishcover.retrofitInit.RetrofitInitial
-import kotlinx.coroutines.launch
 
-class LoginViewModel(private val loginCallback : LoginCallback) : ViewModel() {
+class LoginViewModel : ViewModel() {
 
-    // private val apiInterface = RetrofitInitial().retrofitLogin.create(LoginAPIInterface::class.java)
-
-    private val _DataLogin = MutableLiveData<Result<String>>()
-    val DataLogin : LiveData<Result<String>> = _DataLogin
-
-    fun loginDataUser(username : String?,password : String?){
-        loginCallback.login(username,password){result ->
-            _DataLogin.value = result
+    var username = "endangkus"
+        get() = field
+        set(value) {
+            field = value
         }
+
+    var password = "123456"
+        get() = field
+        set(value) {
+            field = value
+        }
+
+    val apiInterface = RetrofitInitial().retrofitLogin.create(LoginAPIInterface::class.java)
+
+    private val _dataLoginToken = MutableLiveData<String?>()
+    val DataLogin : LiveData<String?> = _dataLoginToken
+
+    private val _status = MutableLiveData<Int>()
+    val status : LiveData<Int> get() = _status
+
+    private val _message = MutableLiveData<String>()
+    val message : LiveData<String> get() = _message
+
+    private val _error = MutableLiveData<String>()
+    val error : LiveData<String> get() = _error
+
+    // post a login data
+    fun loginDataUser(){
+        LoginCallback().getLoginResponse(object : LoginCallback.LoginCallback{
+            override fun onSuccess(Response: String?) {
+                _dataLoginToken.value = Response
+                _message.value = "Get Token Succesfull"
+            }
+
+            override fun onError(statusCode: Int, errorMessage: String) {
+                _status.value = statusCode
+                _message.value = errorMessage
+                _error.value = "Error : $statusCode - $errorMessage"
+            }
+        })
     }
-
-
 }

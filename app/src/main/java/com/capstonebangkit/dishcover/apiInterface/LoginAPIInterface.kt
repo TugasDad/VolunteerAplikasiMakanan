@@ -1,6 +1,7 @@
 package com.capstonebangkit.dishcover.apiInterface
 
 import com.capstonebangkit.dishcover.dataclass.LoginDataClass
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -11,8 +12,5 @@ import retrofit2.http.POST
 interface LoginAPIInterface {
     @FormUrlEncoded
     @POST("/api/user/login")
-    fun LoginDataUser(
-        @Field("username") username : String?,
-        @Field("password") password : String?
-    ) : Call<LoginDataClass>
+    fun postLogin(@Field("username") username : String?, @Field("password") password : String?) : Call<LoginDataClass>
 }
