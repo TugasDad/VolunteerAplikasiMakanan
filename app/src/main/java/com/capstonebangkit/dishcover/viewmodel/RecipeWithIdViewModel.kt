@@ -1,5 +1,6 @@
 package com.capstonebangkit.dishcover.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,7 +35,7 @@ class RecipeWithIdViewModel : ViewModel(){
 
 
 
-    fun getDataRecipe(){
+    fun getDataRecipe(context : Context){
         RecipeWithIdCallback().getRecipesWithId(object : RecipeWithIdCallback.RecipeCallback{
             override fun onSuccess(recipe: List<dataRecipeWithId>) {
                 _dataRecipeWithId.value = recipe
@@ -47,6 +48,6 @@ class RecipeWithIdViewModel : ViewModel(){
                 _message.value = errorMessage
                 _error.value = "Error : $statusCode - $errorMessage"
             }
-        })
+        },context)
     }
 }

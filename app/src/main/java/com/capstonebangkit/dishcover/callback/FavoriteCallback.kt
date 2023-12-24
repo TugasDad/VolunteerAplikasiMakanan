@@ -1,7 +1,9 @@
 package com.capstonebangkit.dishcover.callback
 
+import android.content.Context
 import com.capstonebangkit.dishcover.dataclass.FavoriteDataClass
 import com.capstonebangkit.dishcover.dataclass.dataFavorite
+import com.capstonebangkit.dishcover.sharepref.TokenSharePref
 import com.capstonebangkit.dishcover.viewmodel.FavoriteViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,9 +16,10 @@ class FavoriteCallback {
         fun onError(statusCode : Int, errorMessage : String)
     }
 
-    fun getFavorite(callback : FavoriteCallback){
+    fun getFavorite(callback : FavoriteCallback, context: Context){
+        val token = TokenSharePref(context).getToken()
         val favoriteService = FavoriteViewModel().apiInterface
-        val call : Call<FavoriteDataClass> = favoriteService.getMyFavorite()
+        val call : Call<FavoriteDataClass> = favoriteService.getMyFavorite("Bearer $token")
 
         call.enqueue(object : Callback<FavoriteDataClass>{
 

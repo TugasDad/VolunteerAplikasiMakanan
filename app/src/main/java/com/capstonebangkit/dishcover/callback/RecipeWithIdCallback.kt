@@ -1,8 +1,10 @@
 package com.capstonebangkit.dishcover.callback
 
+import android.content.Context
 import android.util.Log
 import com.capstonebangkit.dishcover.dataclass.RecipeWithIdDataClass
 import com.capstonebangkit.dishcover.dataclass.dataRecipeWithId
+import com.capstonebangkit.dishcover.sharepref.TokenSharePref
 import com.capstonebangkit.dishcover.viewmodel.RecipeWithIdViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,9 +17,11 @@ class RecipeWithIdCallback {
         fun onError(statusCode : Int, errorMessage : String)
     }
 
-    fun getRecipesWithId(callback : RecipeCallback){
+    fun getRecipesWithId(callback : RecipeCallback, context : Context){
+        val token = TokenSharePref(context).getToken()
         val recipeWithIdService = RecipeWithIdViewModel().apiInterface
-        val call : Call<RecipeWithIdDataClass> = recipeWithIdService.getRecipe(RecipeWithIdViewModel().setId)
+        //  Network request fail : java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 57 path $.data
+        val call : Call<RecipeWithIdDataClass> = recipeWithIdService.getRecipe("Bearer $token",RecipeWithIdViewModel().setId)
 
         call.enqueue(object : Callback<RecipeWithIdDataClass> {
             override fun onResponse(

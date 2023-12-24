@@ -1,5 +1,6 @@
 package com.capstonebangkit.dishcover.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,7 @@ import com.capstonebangkit.dishcover.dataclass.dataFavorite
 import com.capstonebangkit.dishcover.dataclass.dataRecipeWithId
 import com.capstonebangkit.dishcover.retrofitInit.RetrofitInitial
 
-class FavoriteViewModel : ViewModel(){
+class FavoriteViewModel() : ViewModel(){
 
     val apiInterface = RetrofitInitial().retrofitMyFavorit.create(FavoritAPIInterface::class.java)
 
@@ -27,7 +28,7 @@ class FavoriteViewModel : ViewModel(){
     private val _error = MutableLiveData<String>()
     val error : LiveData<String> get() = _error
 
-    fun getDataFavorite(){
+    fun getDataFavorite(context : Context){
        FavoriteCallback().getFavorite(object : FavoriteCallback.FavoriteCallback{
            override fun onSuccess(favorite: List<dataFavorite>) {
                _dataFavorite.value = favorite
@@ -40,6 +41,6 @@ class FavoriteViewModel : ViewModel(){
                _message.value = errorMessage
                _error.value = "Error : $statusCode - $errorMessage"
            }
-       })
+       },context)
     }
 }

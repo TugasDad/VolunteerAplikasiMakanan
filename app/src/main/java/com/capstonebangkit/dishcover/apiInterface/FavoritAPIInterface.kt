@@ -5,15 +5,16 @@ import com.capstonebangkit.dishcover.dataclass.FavoritePostDataClass
 import retrofit2.Call
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface FavoritAPIInterface {
 
     @GET("/api/myfavourite")
-    fun getMyFavorite() : Call<FavoriteDataClass>
+    fun getMyFavorite(@Header("Authorization") authorization : String) : Call<FavoriteDataClass>
 
-    @FormUrlEncoded
+   /* @FormUrlEncoded
     @POST("/api/myfavourite/{recipe_id}")
-    fun postFavoriteRecipe(@Path("recipe_id") recipe_id : String?) : Call<FavoritePostDataClass>
+    fun postFavoriteRecipe(@Path("recipe_id") recipe_id : String?) : Call<FavoritePostDataClass>*/
 }

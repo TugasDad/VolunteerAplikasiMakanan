@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstonebangkit.dishcover.databinding.ActivityMainBinding
 import com.capstonebangkit.dishcover.dataclass.dataRecipe
+import com.capstonebangkit.dishcover.sharepref.TokenSharePref
 import com.capstonebangkit.dishcover.viewmodel.FavoriteViewModel
 import com.capstonebangkit.dishcover.viewmodel.KeywordViewModel
 import com.capstonebangkit.dishcover.viewmodel.LoginViewModel
@@ -52,6 +53,20 @@ class MainActivity : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        loginViewModel.username = "endangkus"
+        loginViewModel.password = "123456"
+        // login
+        loginViewModel.DataLogin.observe(this, Observer {token ->
+            Log.d("Token Get : ", token.toString())
+            // in here maybe you can store a token
+            TokenSharePref(this).setToken(token)
+        })
+        loginViewModel.loginDataUser()
+
+        loginViewModel.message.observe(this, Observer {message ->
+            Log.w("LoginViewModel Message", message.toString())
+        })
+
 
         recipeViewModel.dataRecipe.observe(this, Observer {recipes ->
             // Log.d("Recipe Activity", "Recipes : $recipes")
@@ -73,11 +88,11 @@ class MainActivity : AppCompatActivity() {
                 Log.d("urlPhoto_Recipe",recipe.urlImage.toString())
             }
         })
-        recipeWithIdViewModel.getDataRecipe()
+        recipeWithIdViewModel.getDataRecipe(this)
 
-       /* recipeWithIdViewModel.message.observe(this, Observer {message ->
-            Log.w("Message", message.toString())
-        })*/
+        recipeWithIdViewModel.message.observe(this, Observer {message ->
+            Log.w("RecipeWithId Message", message.toString())
+        })
 
         // favorite test
         favorite.dataFavorite.observe(this, Observer {favoriteData ->
@@ -92,7 +107,11 @@ class MainActivity : AppCompatActivity() {
                 Log.d("urlimage",favorite.recipe_id.urlimage.toString())
             }
         })
-        favorite.getDataFavorite()
+        favorite.getDataFavorite(this)
+
+        favorite.message.observe(this, Observer {message ->
+            Log.w("Favorite Message", message.toString())
+        })
 
         // get Query ayam
         queryData.queryData.observe(this, Observer {query ->
@@ -124,13 +143,6 @@ class MainActivity : AppCompatActivity() {
             Log.w("Error : ", message.toString())
         })*/
 
-        loginViewModel.username = "endangkus"
-        loginViewModel.password = "123456"
-        // login
-        loginViewModel.DataLogin.observe(this, Observer {token ->
-            Log.d("Token Get : ", token.toString())
-        })
-        loginViewModel.loginDataUser()
 
     }
 }
