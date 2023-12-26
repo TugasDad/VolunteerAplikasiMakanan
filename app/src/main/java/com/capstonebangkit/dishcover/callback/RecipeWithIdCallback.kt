@@ -12,16 +12,14 @@ import retrofit2.Response
 
 class RecipeWithIdCallback {
 
-    interface RecipeCallback{
+   /* interface RecipeCallback{
         fun onSuccess(recipeWithId: List<dataRecipeWithId>)
         fun onError(statusCode : Int, errorMessage : String)
     }
 
     fun getRecipesWithId(callback : RecipeCallback, context : Context){
-        val token = TokenSharePref(context).getToken()
-        val recipeWithIdService = RecipeWithIdViewModel().apiInterface
-        //  Network request fail : java.lang.IllegalStateException: Expected BEGIN_ARRAY but was BEGIN_OBJECT at line 1 column 57 path $.data
-        val call : Call<RecipeWithIdDataClass> = recipeWithIdService.getRecipe("Bearer $token",RecipeWithIdViewModel().setId)
+        val recipeWithIdService = RecipeWithIdViewModel().apiInterface(context)
+        val call : Call<RecipeWithIdDataClass> = recipeWithIdService.getRecipe(RecipeWithIdViewModel().setId)
 
         call.enqueue(object : Callback<RecipeWithIdDataClass> {
             override fun onResponse(
@@ -47,5 +45,5 @@ class RecipeWithIdCallback {
                 callback.onError(0,"Network request fail : ${t.message}")
             }
         })
-    }
+    }*/
 }

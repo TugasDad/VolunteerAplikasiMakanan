@@ -40,7 +40,7 @@ class LoginViewModel : ViewModel() {
     val error : LiveData<String> get() = _error
 
     // post a login data
-    fun loginDataUser(){
+    fun loginDataUser(context : Context){
         LoginCallback().getLoginResponse(object : LoginCallback.LoginCallback{
             override fun onSuccess(Response: String?) {
                 _dataLoginToken.value = Response
@@ -52,6 +52,6 @@ class LoginViewModel : ViewModel() {
                 _message.value = errorMessage
                 _error.value = "Error : $statusCode - $errorMessage"
             }
-        })
+        }, context)
     }
 }

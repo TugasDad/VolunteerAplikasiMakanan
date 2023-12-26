@@ -21,7 +21,13 @@ class TokenSharePref(context : Context) {
     }
 
     fun getToken() : String?{
-        return tokenSharePref.getString(TOKENKEY,"Default Token")
+        return tokenSharePref.getString(TOKENKEY,"")
+    }
+
+    fun deleteToken(){
+        shareEdit.apply {
+            remove(TOKENKEY)
+        }
     }
     
     companion object{

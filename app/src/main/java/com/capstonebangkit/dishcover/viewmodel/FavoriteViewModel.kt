@@ -12,9 +12,11 @@ import com.capstonebangkit.dishcover.dataclass.dataFavorite
 import com.capstonebangkit.dishcover.dataclass.dataRecipeWithId
 import com.capstonebangkit.dishcover.retrofitInit.RetrofitInitial
 
-class FavoriteViewModel() : ViewModel(){
+class FavoriteViewModel : ViewModel(){
 
-    val apiInterface = RetrofitInitial().retrofitMyFavorit.create(FavoritAPIInterface::class.java)
+    val apiInterface = {context : Context ->
+        RetrofitInitial().retrofitMyFavorit(context).create(FavoritAPIInterface::class.java)
+    }
 
     private val _dataFavorite = MutableLiveData<List<dataFavorite>>()
     val dataFavorite : LiveData<List<dataFavorite>> = _dataFavorite

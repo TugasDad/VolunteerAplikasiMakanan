@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.capstonebangkit.dishcover.databinding.ActivityMainBinding
 import com.capstonebangkit.dishcover.dataclass.dataRecipe
 import com.capstonebangkit.dishcover.sharepref.TokenSharePref
+import com.capstonebangkit.dishcover.viewmodel.FavoritePostViewModel
 import com.capstonebangkit.dishcover.viewmodel.FavoriteViewModel
 import com.capstonebangkit.dishcover.viewmodel.KeywordViewModel
 import com.capstonebangkit.dishcover.viewmodel.LoginViewModel
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private val loginViewModel : LoginViewModel by viewModels()
     private val queryData : QueryViewModel by viewModels()
     private val keywordData : KeywordViewModel by viewModels()
+    private val favoritePost : FavoritePostViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +60,8 @@ class MainActivity : AppCompatActivity() {
         // login
         loginViewModel.DataLogin.observe(this, Observer {token ->
             Log.d("Token Get : ", token.toString())
-            // in here maybe you can store a token
-            TokenSharePref(this).setToken(token)
         })
-        loginViewModel.loginDataUser()
+        loginViewModel.loginDataUser(this)
 
         loginViewModel.message.observe(this, Observer {message ->
             Log.w("LoginViewModel Message", message.toString())
@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
         })
         recipeViewModel.getDataRecipe()
 
-        // autorized permission (for access this, you must get token)
-        recipeWithIdViewModel.dataRecipeWithId.observe(this, Observer {recipeWithId ->
+
+        /*recipeWithIdViewModel.dataRecipeWithId.observe(this, Observer {recipeWithId ->
             for(recipe in recipeWithId){
                 Log.d("Id_Recipe", recipe.id.toString())
                 Log.d("Name_Recipe", recipe.name.toString())
@@ -92,26 +92,8 @@ class MainActivity : AppCompatActivity() {
 
         recipeWithIdViewModel.message.observe(this, Observer {message ->
             Log.w("RecipeWithId Message", message.toString())
-        })
+        })*/
 
-        // favorite test
-        favorite.dataFavorite.observe(this, Observer {favoriteData ->
-            for(favorite in favoriteData){
-                Log.d("Id_favorite", favorite.id.toString())
-                Log.d("User_Id", favorite.userId.toString())
-                Log.d("id",favorite.recipe_id.id.toString())
-                Log.d("name", favorite.recipe_id.name.toString())
-                Log.d("description",favorite.recipe_id.description.toString())
-                Log.d("ingredients",favorite.recipe_id.ingredients.toString())
-                Log.d("step", favorite.recipe_id.step.toString())
-                Log.d("urlimage",favorite.recipe_id.urlimage.toString())
-            }
-        })
-        favorite.getDataFavorite(this)
-
-        favorite.message.observe(this, Observer {message ->
-            Log.w("Favorite Message", message.toString())
-        })
 
         // get Query ayam
         queryData.queryData.observe(this, Observer {query ->
@@ -142,6 +124,45 @@ class MainActivity : AppCompatActivity() {
         keywordData.error.observe(this, Observer {message ->
             Log.w("Error : ", message.toString())
         })*/
+
+        // favorite test
+        favorite.dataFavorite.observe(this, Observer {favoriteData ->
+            for(favorite in favoriteData){
+                Log.d("Id_favorite", favorite.id.toString())
+                Log.d("User_Id_favorite", favorite.userId.toString())
+                Log.d("id_favorite",favorite.recipe_id.id.toString())
+                Log.d("name_favorite", favorite.recipe_id.name.toString())
+                Log.d("description_favorite",favorite.recipe_id.description.toString())
+                Log.d("ingredients_favorite",favorite.recipe_id.ingredients.toString())
+                Log.d("step_favorite", favorite.recipe_id.step.toString())
+                Log.d("urlimage_favorite",favorite.recipe_id.urlimage.toString())
+            }
+        })
+        favorite.getDataFavorite(this)
+
+        favorite.message.observe(this, Observer {message ->
+            Log.w("Favorite Message", message.toString())
+        })
+
+        favoritePost.dataFavoritePost.observe(this, Observer {favoritePost ->
+            for(postRespons in favoritePost){
+                Log.d("Id_favoritePost", postRespons.id.toString())
+                Log.d("User_id_favoritePost", postRespons.user_id.toString())
+                Log.d("recipe_id_favoritePost", postRespons.recipe_id.toString())
+            }
+        })
+
+        favoritePost.message.observe(this, Observer {message ->
+            Log.w("Favorite Message", message.toString())
+        })
+
+        favoritePost.status.observe(this, Observer {message ->
+            Log.w("status Message", message.toString())
+        })
+
+        favoritePost.error.observe(this, Observer {message ->
+            Log.w("Error Message", message.toString())
+        })
 
 
     }

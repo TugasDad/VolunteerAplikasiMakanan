@@ -1,9 +1,11 @@
 package com.capstonebangkit.dishcover.callback
 
+import android.content.Context
 import android.util.Log
 import com.capstonebangkit.dishcover.apiInterface.LoginAPIInterface
 import com.capstonebangkit.dishcover.dataclass.LoginDataClass
 import com.capstonebangkit.dishcover.dataclass.QueryData
+import com.capstonebangkit.dishcover.sharepref.TokenSharePref
 import com.capstonebangkit.dishcover.viewmodel.LoginViewModel
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -18,7 +20,8 @@ class LoginCallback(){
         fun onError(statusCode : Int, errorMessage : String)
     }
 
-    fun getLoginResponse(callback: LoginCallback){
+    fun getLoginResponse(callback: LoginCallback, context : Context){
+        val token = TokenSharePref(context)
         val loginService = LoginViewModel().apiInterface
         val call : Call<LoginDataClass> = loginService.postLogin(LoginViewModel().username,LoginViewModel().password)
 
@@ -34,6 +37,8 @@ class LoginCallback(){
                     loginResponse?.let {
                        // let a get token
                         callback.onSuccess(it.token)
+                        // set token at here
+                        token.setToken(it.token)
                     }
                 } else {
                     callback.onError(response.code(),"Error at : ${response.code()}")

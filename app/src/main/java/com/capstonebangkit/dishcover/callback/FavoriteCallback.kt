@@ -17,9 +17,8 @@ class FavoriteCallback {
     }
 
     fun getFavorite(callback : FavoriteCallback, context: Context){
-        val token = TokenSharePref(context).getToken()
-        val favoriteService = FavoriteViewModel().apiInterface
-        val call : Call<FavoriteDataClass> = favoriteService.getMyFavorite("Bearer $token")
+        val favoriteService = FavoriteViewModel().apiInterface(context)
+        val call : Call<FavoriteDataClass> = favoriteService.getMyFavorite()
 
         call.enqueue(object : Callback<FavoriteDataClass>{
 
